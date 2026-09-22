@@ -1,0 +1,15 @@
+applications:
+  - name: s2z-broker
+    memory: 32M
+    disk_quota: 64M
+    instances: 1
+    buildpack: go_buildpack
+    health-check-type: process
+    env:
+      GOVERSION: go1.22
+      CF_API: ((cf_api))
+      CF_ADMIN_USER: ((cf_admin_user))
+      CF_ADMIN_PASS: ((cf_admin_pass))
+      BROKER_USER: admin
+      BROKER_PASS: ((broker_pass))
+      BROKER_ROUTE: ((broker_route))

@@ -1,0 +1,8 @@
+applications:
+  - name: s2z-target
+    memory: 32M
+    disk_quota: 64M
+    instances: 1
+    buildpack: binary_buildpack
+    command: ./s2z-target
+    health-check-type: process

@@ -1,0 +1,10 @@
+applications:
+  - name: s2z-coordinator
+    memory: 64M
+    disk_quota: 128M
+    instances: 1
+    buildpack: binary_buildpack
+    command: ./coordinator
+    health-check-type: process
+    env:
+      SKIP_TLS_VERIFY: "true"

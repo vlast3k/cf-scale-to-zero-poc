@@ -1,0 +1,15 @@
+applications:
+  - name: s2z-wake-proxy
+    memory: 64M
+    disk_quota: 64M
+    instances: 1
+    buildpack: go_buildpack
+    health-check-type: process
+    env:
+      GOVERSION: go1.22
+      BROKER_URL: ((broker_url))
+      BROKER_TOKEN: ((broker_token))
+      CF_API: ((cf_api))
+      CF_ADMIN_USER: ((cf_admin_user))
+      CF_ADMIN_PASS: ((cf_admin_pass))
+      WAKE_CONFIG: ((wake_config_json))

@@ -1,0 +1,20 @@
+# Binaries
+s2z-broker
+s2z-wake-proxy
+s2z-target
+coordinator
+demo-app
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
