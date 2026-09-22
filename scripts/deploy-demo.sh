@@ -1,21 +1,27 @@
 #!/usr/bin/env bash
 # Deploy Scale-to-Zero Demo (3 target apps + 1 coordinator)
-# Run from OCI container with BOSH/CF access
 #
 # Prerequisites:
 #   - cf logged in to the target landscape
-#   - UAA client 'scale-to-zero-proxy' exists with cloud_controller.admin
+#   - UAA client with cloud_controller.admin scope
 #   - Go available for cross-compilation
 #
-# Usage: ./deploy-demo.sh
+# Usage:
+#   export DOMAIN="cfapps.example.com"
+#   export CF_API="https://api.cf.example.com"
+#   export CF_CLIENT_ID="scale-to-zero-proxy"
+#   export CF_CLIENT_SECRET="your-secret"
+#   ./deploy-demo.sh
 
 set -euo pipefail
 
-# --- Configuration ---
-DOMAIN="${DOMAIN:-cfapps.lod-aws-0723.cfrt-sof.sapcloud.io}"
-CF_API="${CF_API:-https://api.cf.lod-aws-0723.cfrt-sof.sapcloud.io}"
-CF_CLIENT_ID="${CF_CLIENT_ID:-scale-to-zero-proxy}"
-CF_CLIENT_SECRET="${CF_CLIENT_SECRET:-s2z-proxy-secret-2026}"
+DOMAIN="${DOMAIN:?Set DOMAIN (e.g. cfapps.example.com)}"
+CF_API="${CF_API:?Set CF_API (e.g. https://api.cf.example.com)}"
+CF_CLIENT_ID="${CF_CLIENT_ID:?Set CF_CLIENT_ID (UAA client with cloud_controller.admin)}"
+CF_CLIENT_SECRET="${CF_CLIENT_SECRET:?Set CF_CLIENT_SECRET}"
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd -P)"
 
 APPS=("s2z-demo-app-1" "s2z-demo-app-2" "s2z-demo-app-3")
 COORDINATOR="s2z-coordinator"
@@ -27,7 +33,7 @@ echo ""
 
 # --- Step 1: Build demo apps ---
 echo "▶ Building demo apps..."
-cd "$(dirname "$0")/demo-apps"
+cd "$REPO_ROOT/demo-app"
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o demo-app .
 echo "  ✓ demo-app binary built"
 
@@ -54,7 +60,7 @@ done
 # --- Step 4: Build coordinator ---
 echo ""
 echo "▶ Building coordinator..."
-cd "$(dirname "$0")/demo-coordinator"
+cd "$REPO_ROOT/demo-coordinator"
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o coordinator .
 echo "  ✓ coordinator binary built"
 

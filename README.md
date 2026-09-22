@@ -1,6 +1,6 @@
 # Scale-to-Zero for Cloud Foundry
 
-**Zero platform changes. ~530 lines of Go. Cold wake in 3 seconds.**
+**Zero platform changes. ~1,350 lines of Go. Cold wake in 3 seconds.**
 
 A proof of concept that enables scale-to-zero on Cloud Foundry using three user-space CF apps. Stopped apps wake automatically on the first inbound request. Validated end-to-end on a live CF landscape.
 
@@ -115,7 +115,7 @@ The broker holds CC admin credentials. Users never see them. Each service bindin
 2. App belongs to the caller's space (CC API check)
 3. Rate limit: max 1 wake per app per 60 seconds
 
-240 lines of Go. 32M memory. No dependencies beyond stdlib.
+670 lines of Go. 32M memory. No dependencies beyond stdlib.
 
 ### Wake-Proxy (`wake-proxy/`)
 
@@ -130,7 +130,7 @@ Key behaviors:
 - **Self-healing**: if the proxy crashes mid-wake (app started but route not swapped), the next request to a surviving instance creates a new session — health passes immediately, forward works, swap fires.
 - **Body buffering**: request bodies are buffered (1MB cap) so POST/PUT can be retried across gorouter convergence.
 
-290 lines of Go. 64M memory. No dependencies beyond stdlib.
+640 lines of Go. 64M memory. No dependencies beyond stdlib.
 
 ### Target App (`target-app/`)
 

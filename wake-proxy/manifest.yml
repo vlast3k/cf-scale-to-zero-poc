@@ -3,10 +3,10 @@ applications:
     memory: 64M
     disk_quota: 64M
     instances: 1
-    buildpack: go_buildpack
+    buildpack: binary_buildpack
+    command: ./s2z-wake-proxy
     health-check-type: process
     env:
-      GOVERSION: go1.22
       BROKER_URL: ((broker_url))
       BROKER_TOKEN: ((broker_token))
       CF_API: ((cf_api))
