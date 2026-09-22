@@ -1,0 +1,10 @@
+applications:
+  - name: s2z-demo-app
+    memory: 32M
+    disk_quota: 64M
+    instances: 1
+    buildpack: binary_buildpack
+    command: ./demo-app
+    health-check-type: process
+    env:
+      APP_NAME: ((app_name))

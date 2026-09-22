@@ -1,9 +1,9 @@
-# Binaries
-s2z-broker
-s2z-wake-proxy
-s2z-target
-coordinator
-demo-app
+# Binaries (in their respective directories)
+broker/s2z-broker
+wake-proxy/s2z-wake-proxy
+target-app/s2z-target
+demo-coordinator/coordinator
+demo-app/demo-app
 
 # IDE
 .idea/
